@@ -1,0 +1,25 @@
+nombres = ['Rosita','Manuel','Luciana']
+print(nombres)
+nombres.remove('Luciana')
+print(nombres)
+nombres.append('Mariana')
+nombres.insert(1,"Belen")
+print(nombres)
+del nombres[2]
+print(nombres)
+nombres.sort()
+print(nombres)
+
+frutas = 'Frambuesa,Manzana,Naranja,Mandarina,Banana,Sandía,Pera'
+listaFrutas = frutas.split(",")
+print(listaFrutas)
+print(listaFrutas[1:4])
+print("Granada" in listaFrutas or "Pera" in listaFrutas or "Limon" in listaFrutas)
+listaFrutas.append("Manzana")
+print(listaFrutas.count("Manzana"))
+listaFrutas.remove("Manzana")
+print(listaFrutas.count("Manzana"))
+unidos = ":".join(listaFrutas)
+print(unidos)
+pegados = "".join(listaFrutas)
+print(pegados)
