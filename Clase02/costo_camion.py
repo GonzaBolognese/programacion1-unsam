@@ -9,7 +9,8 @@ def costo_camion(nombre_archivo):
         for r in rows:
             suma += float(r[2])
         f.close()
-        print(suma)
+        return round(suma,2)
     except:
         print("El archivo seleccionado no es compatible")    
-costo_camion("camion.csv")
+costo = costo_camion("camion.csv")
+print('Costo total:', costo)
