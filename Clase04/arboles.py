@@ -3,7 +3,7 @@ from collections import Counter
 
 def leer_parque(nombre_archivo, parque):
     lista_parque = []
-    ruta = rf'C:\Users\gonza\OneDrive\Escritorio\Programacion_1\Ejercicios\programacion1-unsam\data\{nombre_archivo}'
+    ruta = rf'U:\Gonzalo\Documentos\Prs\programacion\programacion1-unsam\Data\{nombre_archivo}'
     f = open(ruta, encoding="utf-8")
     filas = csv.reader(f)
     headers = next(filas)
@@ -28,21 +28,35 @@ def contar_ejemplares(lista_arboles):
             lista[l['nombre_com']] += 1
     return lista.most_common(5)
 
+def obtener_alturas(lista_arboles, especie):
+    max = 0
+    lista_Alturas = []
+
+    for l in lista_arboles:
+        if l['nombre_com'] == especie:
+            if int(l['altura_tot']) > max:
+                max = int(l['altura_tot'])
+            lista_Alturas.append(int(l['altura_tot']))
+    promedio = sum(lista_Alturas)/len(lista_Alturas)
+
+    return(max, promedio)
 
 
 
 
 data = {
-    "General Paz": contar_ejemplares(leer_parque("arbolado-en-espacios-verdes.csv", "GENERAL PAZ")),
-    "Los Andes": contar_ejemplares(leer_parque("arbolado-en-espacios-verdes.csv", "ANDES, LOS")),
-    "Centenario": contar_ejemplares(leer_parque("arbolado-en-espacios-verdes.csv", "CENTENARIO"))
+    "General Paz": obtener_alturas(leer_parque("arbolado-en-espacios-verdes.csv", "GENERAL PAZ"), 'Jacarandá'),
+    "Los Andes": obtener_alturas(leer_parque("arbolado-en-espacios-verdes.csv", "ANDES, LOS"), 'Jacarandá'),
+    "Centenario": obtener_alturas(leer_parque("arbolado-en-espacios-verdes.csv", "CENTENARIO"), 'Jacarandá')
 }
 
-print("=" * 90)
-print(f"{'General Paz':<30s}{'Los Andes':<30s}{'Centenario':<30s}")
-print("=" * 90)
+print("=" * 120)
+print(f"{'Descripcion':<30s}{'General Paz':<30s}{'Los Andes':<30s}{'Centenario':<30s}")
+print("=" * 120)
+
 
 # Imprimir filas
+"""
 for i in range(5):
      dato_General_Paz = f'{data['General Paz'][i][0]} : {data['General Paz'][i][1]}'
      dato_Los_Andes = f'{data['Los Andes'][i][0]} : {data['Los Andes'][i][1]}'
@@ -50,3 +64,8 @@ for i in range(5):
      print(f'{dato_General_Paz:<30s} {dato_Los_Andes:<30s} {dato_Centenario:<30s}')
 
 print("=" * 90)
+"""
+
+print(f'{'max':<30s}{data["General Paz"][0]:<30d} {data["Los Andes"][0]:<30d} {data["Centenario"][0]:<30d}')
+print(f'{'prom':<30s}{data["General Paz"][1]:<30.2f} {data["Los Andes"][1]:<30.2f} {data["Centenario"][1]:<30.2f}')
+print("=" * 120)
