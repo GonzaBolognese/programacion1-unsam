@@ -1,7 +1,7 @@
 import csv
 from collections import Counter
 
-RUTA_ARCHIVO = r"C:\Users\gonza\OneDrive\Escritorio\Programacion_1\Ejercicios\programacion1-unsam\data\arbolado-en-espacios-verdes.csv"
+RUTA_ARCHIVO = r"C:\Users\gbolognese\Documents\Prs\programcion\programacion1-unsam\Data\arbolado-en-espacios-verdes.csv"
 
 
 def leer_parque(nombre_archivo, parque):
@@ -17,7 +17,7 @@ def leer_parque(nombre_archivo, parque):
             if(fila[indice_filtro] == parque):
                 lista_parque.append(dict(zip(headers, fila)))
     except:
-        print('Faltan valores en el archivo ingresado')
+        print('Faltan valores en el leer parque')
     return lista_parque
 
 def especies(lista_arboles):
@@ -28,7 +28,7 @@ def especies(lista_arboles):
                 especies.add(l['nombre_com'])
         return especies
     except:
-        print('Faltan valores en el archivo ingresado')
+        print('Faltan valores de especies')
 
 def contar_ejemplares(lista_arboles):
     lista = Counter()
@@ -38,7 +38,7 @@ def contar_ejemplares(lista_arboles):
                 lista[l['nombre_com']] += 1
         return lista.most_common(5)
     except:
-        print('Faltan valores en el archivo ingresado')
+        print('Faltan valores al contar ejemplares')
 
 def obtener_alturas(lista_arboles, especie):
     max = 0
@@ -53,7 +53,7 @@ def obtener_alturas(lista_arboles, especie):
 
         return(max, promedio)
     except:
-        print('Faltan valores en el archivo ingresado')
+        print('Faltan valores al obtener altura')
 
 def obtener_inclinaciones(lista_arboles, especie):
     lista_Inclinacion = set()
@@ -63,7 +63,7 @@ def obtener_inclinaciones(lista_arboles, especie):
                 lista_Inclinacion.add(int(l['inclinacio']))
         return(lista_Inclinacion)
     except:
-        print('Faltan valores en el archivo ingresado')
+        print('Faltan valores obtener inclinación')
 
 def especimen_mas_inclinado(lista_arboles):
     max_incli = dict()
