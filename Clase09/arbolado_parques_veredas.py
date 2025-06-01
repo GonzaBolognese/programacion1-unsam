@@ -3,33 +3,35 @@ import os
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-directorio = '../Data'
-archivo = 'arbolado-publico-lineal-2017-2018.csv'
-fname = os.path.join(directorio,archivo)
-df = pd.read_csv(fname)
-cols_sel = ['nombre_cientifico', 'ancho_acera', 'diametro_altura_pecho', 'altura_arbol']
-df_lineal = df[cols_sel]
-frecuencia = df_lineal['nombre_cientifico'].value_counts()
-top_10_frecuencia = frecuencia.head(10)
+directorio = './Data'
+archivo_parques = 'arbolado-en-espacios-verdes.csv'
+archivo_vereda = 'arbolado-publico-lineal-2017-2018.csv'
 
-#Top 10 arboles mas frecuentes
-#print(top_10_frecuencia)
+fparques = os.path.join(directorio, archivo_parques)
+fvereda = os.path.join(directorio, archivo_vereda)
 
-especies_seleccionadas = ['Tilia x moltkei', 'Jacaranda mimosifolia', 'Tipuana tipu']
-df_lineal_seleccion = df_lineal[df_lineal['nombre_cientifico'].isin(especies_seleccionadas)]
+df_parques = pd.read_csv(fparques)
+df_veredas = pd.read_csv(fvereda)
 
-#Boxplot diametro_altura_pecho
-# df_lineal_seleccion.boxplot('diametro_altura_pecho', by = 'nombre_cientifico')
-# plt.suptitle('')
-# plt.title('Diametro pecho')
-# plt.show()
+cols_parques = ['altura_tot', 'diametro']
+cols_veredas = ['altura_arbol', 'diametro_altura_pecho']
 
-#Boxplot altura_arbol
-# df_lineal_seleccion.boxplot('altura_arbol', by= 'nombre_cientifico') #Con pandas
-# sns.boxplot(data= df_lineal_seleccion, x='nombre_cientifico', y='altura_arbol') #Con Seaborn
-# plt.suptitle('')
-# plt.title('Altura_arboles')
-# plt.show()
+df_tipas_parques = df_parques[df_parques['nombre_cie']=='Tipuana Tipu'].copy()
+df_tipas_veredas = df_veredas[df_veredas['nombre_cientifico'] == 'Tipuana tipu'].copy()
 
-sns.pairplot(data = df_lineal_seleccion[cols_sel], hue = 'nombre_cientifico')
+df_tipas_parques = df_tipas_parques[cols_parques].rename(columns={'altura_tot':'altura'})
+df_tipas_veredas = df_tipas_veredas[cols_veredas].rename(columns={'altura_arbol':'altura', 'diametro_altura_pecho': 'diametro'})
+
+df_tipas_parques['ambiente'] = ['parque' for _ in range(len(df_tipas_parques))]
+df_tipas_veredas['ambiente'] = ['vereda' for _ in range(len(df_tipas_veredas))]
+
+df_tipas = pd.concat([df_tipas_veredas, df_tipas_parques])
+
+df_tipas.boxplot('diametro',by = 'ambiente')
+df_tipas.boxplot('altura',by = 'ambiente')
+#sns.boxplot(data = df_tipas, x = 'ambiente', y = 'diametro')
 plt.show()
+
+#print(df_tipas)
+
+
