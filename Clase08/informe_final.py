@@ -47,7 +47,7 @@ def f_principal(parametros):
 if __name__ == '__main__':
     import sys
     if len(sys.argv) == 1:
-        f_principal(["tabla_informe.py", "../Data/camion.csv", "../Data/precios.csv"])
+        f_principal(["tabla_informe.py", "./Data/camion.csv", "./Data/precios.csv"])
     elif len(sys.argv) == 2:
         f_principal(["tabla_informe.py", sys.argv[1], "../Data/precios.csv"])
     else:
